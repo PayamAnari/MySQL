@@ -1,0 +1,15 @@
+database was not in full 2NF (Second Normal Form) or 3NF (Third Normal Form) before normalization. Here are the issues and changes made to normalize the database:
+
+Issue with 1NF: The original schema had issues with the first normal form (1NF) as well. There was redundancy in data, and some tables contained multivalued attributes.
+
+Redundant Data: There was redundant data in the original schema. For example, the same ingredients, steps, and categories were repeated for multiple recipes.
+
+Composite Primary Keys: Some tables used composite primary keys, which can make queries and maintenance more complex.
+
+To normalize the database to at least 2NF and 3NF, the following changes were made:
+
+Created Separate Tables: Separate tables were created for Ingredients, Steps, and Categories to eliminate redundancy and achieve 1NF.
+
+Junction Tables: To establish many-to-many relationships between recipes and ingredients/steps, junction tables (RecipeIngredients and RecipeSteps) were introduced. These tables have foreign keys to both the Recipes table and the respective ingredient/step tables.
+
+Single-Column Primary Keys: The use of composite primary keys was removed in favor of single-column primary keys in the new tables. This simplifies query and maintenance operations.
