@@ -1,0 +1,31 @@
+Categories Collection:
+
+Embed: It's a small collection with just two fields (CategoryID and CategoryName). It's reasonable to embed this information directly into the documents that reference categories.
+Ingredients Collection:
+
+Embed: This collection also contains only two fields (IngredientID and IngredientName). Similar to categories, it's practical to embed this information into documents that reference ingredients.
+Steps Collection:
+
+Normalize: Steps are used by multiple recipes, and they can be lengthy. Embedding them could lead to duplication and increased document size. So, it's better to keep them in a separate collection.
+Recipes Collection:
+
+Embed CategoryID: This is a foreign key in the SQL schema, but in MongoDB, we can embed it directly in the recipe document.
+Normalize Recipe Ingredients and Steps: These are referenced by multiple recipes and could be quite large. It's better to keep them in separate collections.
+RecipeIngredients Collection:
+
+Normalize: This collection associates recipes with their ingredients, and it can potentially contain a large number of records.
+RecipeSteps Collection:
+
+Normalize: Similar to RecipeIngredients, this collection associates recipes with their steps.
+
+
+
+const recipeSchema = new mongoose.Schema({
+  RecipeID: Number,
+  RecipeName: String,
+  CategoryID: Number,
+  Ingredients: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Ingredient' }],
+  Steps: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Step' }]
+});
+
+const recipeModel = mongoose.model('Recipe', recipeSchema);
